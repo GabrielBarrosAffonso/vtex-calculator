@@ -8,7 +8,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-This app is being created to learn more about React and Typescript, the finality is to add a calculator as a Store framework component.
+This app is being created to learn more about React and Typescript, the finality is to add a calculator as a Store framework component inside a VTEX Store.
 You will be able to add the Calculator block in your theme and use it to apply different type of operations,
 
 ![CalculatorPure](https://user-images.githubusercontent.com/58013759/137795065-43de7b0f-7714-4123-aceb-e9dbe9eb0ee3.png)
