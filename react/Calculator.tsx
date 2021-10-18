@@ -28,8 +28,6 @@ function Calculator({ }: Props) {
 
   const [firstNum, SetFirstNum] = useState<string>("")
   const [operationArray, SetOperationArray] = useState<Array<string>>([])
-  const [lastElement, setLastElement] = useState<string>("")
-
 
   function handleButton(e: React.SyntheticEvent<EventTarget>) {
     e.preventDefault()
@@ -46,16 +44,14 @@ function Calculator({ }: Props) {
 
   function handleButtonOperator(e: React.SyntheticEvent<EventTarget>) {
     e.preventDefault()
-    let lastArrayElement = operationArray[operationArray.length - 1]
-
-    operationArray.push(firstNum)
-    operationArray.push((e.target as HTMLButtonElement).value)
+    if (firstNum != "") {
+      operationArray.push(firstNum)
+      operationArray.push((e.target as HTMLButtonElement).value)
+    }
 
     SetOperationArray(operationArray)
     SetFirstNum("")
-    setLastElement(lastArrayElement)
   }
-
 
   function handleButtonEqual(e: React.SyntheticEvent<EventTarget>) {
     e.preventDefault()
@@ -63,7 +59,6 @@ function Calculator({ }: Props) {
 
   console.log(firstNum)
   console.log(operationArray)
-  console.log(lastElement)
 
   return (
     <Fragment>

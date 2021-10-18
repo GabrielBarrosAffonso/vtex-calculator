@@ -1,6 +1,6 @@
 📢 Use this project, [contribute](https://github.com/{OrganizationName}/{AppName}) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
-# VTEX CALCULATOR
+# VTEX INTEGER CALCULATOR
 
 <!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -8,18 +8,21 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-Under the app's name, you should explain the topic, giving a **brief description** of its **functionality** in a store when installed.
+This app is being created to learn more about React and Typescript, the finality is to add a calculator as a Store framework component.
+You will be able to add the Calculator block in your theme and use it to apply different type of operations,
 
-Next, **add media** (either an image of a GIF) with the rendered components, so that users can better understand how the app works in practice. 
-
-![Media Placeholder](https://user-images.githubusercontent.com/52087100/71204177-42ca4f80-227e-11ea-89e6-e92e65370c69.png)
+![CalculatorPure](https://user-images.githubusercontent.com/58013759/137795065-43de7b0f-7714-4123-aceb-e9dbe9eb0ee3.png)
 
 ## Configuration 
 
-In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
+To use this app in your theme you first need to follow the steps below:
 
 1. Adding the app as a theme dependency in the `manifest.json` file;
+![dependency](https://user-images.githubusercontent.com/58013759/137796754-196cfbb7-fefa-442e-b1e5-a94917ca178a.jpeg)
+
 2. Declaring the app's main block in a given theme template or inside another block from the theme.
+![blockCalculator](https://user-images.githubusercontent.com/58013759/137796721-3b68bba9-5559-4918-b222-0692956b39e9.jpeg)
+
 
 Remember to add a table with all blocks exported by the app and their descriptions. You can verify an example of it on the [Search Result documentation](https://vtex.io/docs/components/all/vtex.search-result@3.56.1/). 
 
