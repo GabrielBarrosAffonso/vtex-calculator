@@ -26,7 +26,10 @@ const operators = [
 
 function Calculator({ }: Props) {
 
-  const [firstNum, SetFirstNum] = useState<String>("")
+  const [firstNum, SetFirstNum] = useState<string>("")
+  const [operationArray, SetOperationArray] = useState<Array<string>>([])
+  const [lastElement, setLastElement] = useState<string>("")
+
 
   function handleButton(e: React.SyntheticEvent<EventTarget>) {
     e.preventDefault()
@@ -37,35 +40,60 @@ function Calculator({ }: Props) {
     if (elementType == "number") {
       firstNumber = (firstNum + elementValue)
     }
-
-    if (elementType == "operator") {
-
-    }
-
     SetFirstNum(firstNumber)
   }
 
+
+  function handleButtonOperator(e: React.SyntheticEvent<EventTarget>) {
+    e.preventDefault()
+    let lastArrayElement = operationArray[operationArray.length - 1]
+
+    operationArray.push(firstNum)
+    operationArray.push((e.target as HTMLButtonElement).value)
+
+    SetOperationArray(operationArray)
+    SetFirstNum("")
+    setLastElement(lastArrayElement)
+  }
+
+
+  function handleButtonEqual(e: React.SyntheticEvent<EventTarget>) {
+    e.preventDefault()
+  }
+
   console.log(firstNum)
+  console.log(operationArray)
+  console.log(lastElement)
 
   return (
     <Fragment>
       <section>
-        <div className="">
-          {firstNum}
+        <div id="visor">
+          {
+            operationArray.map((value, index) => (
+              <span key={index}>{value}</span>
+            ))
+          }
+          {
+            <span>{firstNum}</span>
+          }
         </div>
-        <div>
+        <div id="first-num-keys">
           {
             keys.map((key, index) => (
               <button name={key.type} value={key.value} key={index} id={`${key.value}`} onClick={handleButton}>{key.print}</button>
             ))
           }
         </div>
-        <div>
+        <div id="operator">
           {
             operators.map((operator, index) => (
-              <button name={operator.type} value={operator.value} key={index} id={`${operator.value}`} onClick={handleButton}>{operator.value}</button>
+              <button name={operator.type} value={operator.value} key={index} id={`${operator.value}`} onClick={handleButtonOperator}>{operator.value}</button>
             ))
           }
+        </div>
+        <div id="equal">
+          <button onClick={handleButtonEqual}>=</button>
         </div>
       </section>
     </Fragment>
