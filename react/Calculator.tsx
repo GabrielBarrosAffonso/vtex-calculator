@@ -15,38 +15,77 @@ const keys = [
 ]
 
 const operators = [
-  { value: '*' },
-  { value: '+' },
-  { value: '/' },
-  { value: '-' },
+  { print: '*' },
+  { print: '+' },
+  { print: '/' },
+  { print: '-' },
 ]
 
 function Calculator() {
-  const [firstNum, SetFirstNum] = useState<string>('')
-  const [operationArray, SetOperationArray] = useState<string[]>([])
+  const [mainNumber, SetMainNumber] = useState<string>('')
+  const [lastOperator, SetLastOperator] = useState<string>('')
+  const [stringArray, SetStringArray] = useState<string[]>([])
+  const [numberArray, SetNumbersArray] = useState<number[]>([])
 
-  function handleButton(e: React.MouseEvent) {
+  let handleStringArray = stringArray
+  let handleNumberArray = numberArray
+  let handleLastOperator = lastOperator
+  let finalNumber = 0
+
+  // ---------------------------------------
+  function handleButtonNumber(e: React.MouseEvent) {
     e.preventDefault()
     const elementValue = (e.target as HTMLButtonElement).innerHTML
-    let firstNumber = ''
+    let thisNumber = ''
 
-    firstNumber = firstNum + elementValue
-    SetFirstNum(firstNumber)
+    thisNumber = mainNumber + elementValue
+    SetMainNumber(thisNumber)
   }
 
+  // ---------------------------------------
   function handleButtonOperator(e: React.MouseEvent) {
     e.preventDefault()
-    if (firstNum !== '') {
-      operationArray.push(firstNum)
-      operationArray.push((e.target as HTMLButtonElement).innerHTML)
+    handleNumberArray.push(parseFloat(mainNumber))
+    handleLastOperator = (e.target as HTMLButtonElement).innerHTML
+    handleStringArray.push(mainNumber)
+    handleStringArray.push(handleLastOperator)
+
+    if (numberArray.length === 2) {
+      calculator(numberArray, lastOperator)
     }
 
-    SetOperationArray(operationArray)
-    SetFirstNum('')
+    SetLastOperator(handleLastOperator)
+    SetStringArray(handleStringArray)
+    SetNumbersArray(handleNumberArray)
+    SetMainNumber('')
   }
 
-  function handleButtonEqual(e: React.SyntheticEvent<EventTarget>) {
+  // ---------------------------------------
+  function handleButtonEqual(e: React.MouseEvent) {
     e.preventDefault()
+  }
+
+  // ----------------------------------------
+  function calculator(numbers: number[], operator: string) {
+    const firstNumber = numbers[0]
+    const secondNumber = numbers[1]
+
+    if (operator === '+') {
+      finalNumber = firstNumber + secondNumber
+    }
+
+    if (operator === '-') {
+      finalNumber = firstNumber - secondNumber
+    }
+
+    if (operator === '*') {
+      finalNumber = firstNumber - secondNumber
+    } else if (operator === '/') {
+      finalNumber = firstNumber / secondNumber
+    }
+
+    handleNumberArray = [finalNumber]
+    handleStringArray = [finalNumber.toString(), handleLastOperator]
   }
 
   return (
@@ -54,10 +93,10 @@ function Calculator() {
       <h1 className="t-heading-4">Calculator</h1>
       <section>
         <div id="visor" className="bg-light-silver pa4">
-          {operationArray.map((value, index) => (
+          {stringArray.map((value, index) => (
             <span key={index}>{value}</span>
           ))}
-          {<span>{firstNum}</span>}
+          {<span>{mainNumber}</span>}
         </div>
         <div id="first-num-keys">
           {keys.map((key, index) => (
@@ -66,7 +105,7 @@ function Calculator() {
               value={key.value}
               key={index}
               id={`${key.value}`}
-              onClick={handleButton}
+              onClick={handleButtonNumber}
             >
               {key.print}
             </Button>
@@ -76,12 +115,12 @@ function Calculator() {
           {operators.map((operator, index) => (
             <Button
               variation="secondary"
-              value={operator.value}
+              value={operator.print}
               key={index}
-              id={`${operator.value}`}
+              id={`${operator.print}`}
               onClick={handleButtonOperator}
             >
-              {operator.value}
+              {operator.print}
             </Button>
           ))}
         </div>
