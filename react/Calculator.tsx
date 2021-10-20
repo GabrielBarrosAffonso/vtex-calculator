@@ -1,24 +1,15 @@
 import React, { Fragment, useState } from 'react'
 import { Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
-const keys = [
-  { print: '1', value: 1 },
-  { print: '2', value: 2 },
-  { print: '3', value: 3 },
-  { print: '4', value: 4 },
-  { print: '5', value: 5 },
-  { print: '6', value: 6 },
-  { print: '7', value: 7 },
-  { print: '8', value: 8 },
-  { print: '9', value: 9 },
-  { print: '0', value: 0 },
-]
+import { keys, operators } from './data/objects'
 
-const operators = [
-  { print: '*' },
-  { print: '+' },
-  { print: '/' },
-  { print: '-' },
+const CSS_HANDLES = [
+  'container',
+  'numberButtons',
+  'operatorButtons',
+  'equalButton',
+  'visor',
 ]
 
 function Calculator() {
@@ -31,6 +22,8 @@ function Calculator() {
   let handleNumberArray = numberArray
   let handleLastOperator = lastOperator
   let finalNumber = 0
+
+  const { handles } = useCssHandles(CSS_HANDLES)
 
   // ---------------------------------------
   function handleButtonNumber(e: React.MouseEvent) {
@@ -91,16 +84,17 @@ function Calculator() {
   return (
     <Fragment>
       <h1 className="t-heading-4">Calculator</h1>
-      <section>
-        <div id="visor" className="bg-light-silver pa4">
+      <section className={`${handles.container} c-muted-1 db tc`}>
+        <div className={`${handles.visor} bg-light-silver pa4`}>
           {stringArray.map((value, index) => (
             <span key={index}>{value}</span>
           ))}
           {<span>{mainNumber}</span>}
         </div>
-        <div id="first-num-keys">
+        <div>
           {keys.map((key, index) => (
             <Button
+              className={`${handles.numberButtons}`}
               variation="primary"
               value={key.value}
               key={index}
@@ -111,9 +105,10 @@ function Calculator() {
             </Button>
           ))}
         </div>
-        <div id="operator">
+        <div>
           {operators.map((operator, index) => (
             <Button
+              className={`${handles.operatorButtons}`}
               variation="secondary"
               value={operator.print}
               key={index}
@@ -124,8 +119,13 @@ function Calculator() {
             </Button>
           ))}
         </div>
-        <div id="equal">
-          <button onClick={handleButtonEqual}>=</button>
+        <div>
+          <button
+            className={`${handles.equalButton}`}
+            onClick={handleButtonEqual}
+          >
+            =
+          </button>
         </div>
       </section>
     </Fragment>
