@@ -3,6 +3,7 @@ import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { keys, operators } from './data/objects'
+import Visor from './components/Visor/Visor'
 
 const CSS_HANDLES = [
   'container',
@@ -65,14 +66,10 @@ function Calculator() {
 
     if (operator === '+') {
       finalNumber = firstNumber + secondNumber
-    }
-
-    if (operator === '-') {
+    } else if (operator === '-') {
       finalNumber = firstNumber - secondNumber
-    }
-
-    if (operator === '*') {
-      finalNumber = firstNumber - secondNumber
+    } else if (operator === '*') {
+      finalNumber = firstNumber * secondNumber
     } else if (operator === '/') {
       finalNumber = firstNumber / secondNumber
     }
@@ -84,17 +81,14 @@ function Calculator() {
   return (
     <Fragment>
       <h1 className="t-heading-4">Calculator</h1>
-      <section className={`${handles.container} c-muted-1 db tc`}>
-        <div className={`${handles.visor} bg-light-silver pa4`}>
-          {stringArray.map((value, index) => (
-            <span key={index}>{value}</span>
-          ))}
-          {<span>{mainNumber}</span>}
-        </div>
-        <div>
+      <section
+        className={`${handles.container} c-muted-1 db tc flex-column w-25`}
+      >
+        <Visor printArray={stringArray} printNumber={mainNumber} />
+        <div className="flex-wrap">
           {keys.map((key, index) => (
             <Button
-              className={`${handles.numberButtons}`}
+              className={`${handles.numberButtons} w-30`}
               variation="primary"
               value={key.value}
               key={index}
