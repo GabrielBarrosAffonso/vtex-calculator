@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
-import { keys, operators } from './data/objects'
+import { keys, operators } from './utils/constants'
 import Visor from './components/Visor/Visor'
 
 const CSS_HANDLES = [
@@ -45,7 +45,7 @@ function Calculator() {
     handleStringArray.push(handleLastOperator)
 
     if (numberArray.length === 2) {
-      calculator(numberArray, lastOperator)
+      calculate(numberArray, lastOperator)
     }
 
     SetLastOperator(handleLastOperator)
@@ -54,13 +54,8 @@ function Calculator() {
     SetMainNumber('')
   }
 
-  // ---------------------------------------
-  function handleButtonEqual(e: React.MouseEvent) {
-    e.preventDefault()
-  }
-
   // ----------------------------------------
-  function calculator(numbers: number[], operator: string) {
+  function calculate(numbers: number[], operator: string) {
     const firstNumber = numbers[0]
     const secondNumber = numbers[1]
 
@@ -112,14 +107,6 @@ function Calculator() {
               {operator.print}
             </Button>
           ))}
-        </div>
-        <div>
-          <button
-            className={`${handles.equalButton}`}
-            onClick={handleButtonEqual}
-          >
-            =
-          </button>
         </div>
       </section>
     </Fragment>

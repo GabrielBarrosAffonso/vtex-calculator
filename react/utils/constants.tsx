@@ -9,6 +9,7 @@ export const keys = [
   { print: '8', value: 8 },
   { print: '9', value: 9 },
   { print: '0', value: 0 },
+  { print: '.', value: '.' },
 ]
 
 export const operators = [
