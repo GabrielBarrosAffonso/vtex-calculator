@@ -8,7 +8,7 @@ type Props = {
 
 const CSS_HANDLES = ['visor']
 
-function Visor({ printNumber, printArray }: Props) {
+function CalculatorVisor({ printNumber, printArray }: Props) {
   const { handles } = useCssHandles(CSS_HANDLES)
 
   return (
@@ -21,4 +21,4 @@ function Visor({ printNumber, printArray }: Props) {
   )
 }
 
-export default Visor
+export default CalculatorVisor

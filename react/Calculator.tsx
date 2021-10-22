@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from 'react'
-import { Button } from 'vtex.styleguide'
+import React, { useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { keys, operators } from './utils/constants'
-import Visor from './components/Visor/Visor'
+import CalculatorVisor from './components/CalculatorVisor/CalculatorVisor'
+import CalculatorButton from './components/CalculatorButton/CalculatorButton'
 
 const CSS_HANDLES = [
   'container',
@@ -56,17 +56,17 @@ function Calculator() {
 
   // ----------------------------------------
   function calculate(numbers: number[], operator: string) {
-    const firstNumber = numbers[0]
-    const secondNumber = numbers[1]
+    const useNumbers = numbers
+    const [first, second] = useNumbers
 
     if (operator === '+') {
-      finalNumber = firstNumber + secondNumber
+      finalNumber = first + second
     } else if (operator === '-') {
-      finalNumber = firstNumber - secondNumber
+      finalNumber = first - second
     } else if (operator === '*') {
-      finalNumber = firstNumber * secondNumber
+      finalNumber = first * second
     } else if (operator === '/') {
-      finalNumber = firstNumber / secondNumber
+      finalNumber = first / second
     }
 
     handleNumberArray = [finalNumber]
@@ -74,42 +74,32 @@ function Calculator() {
   }
 
   return (
-    <Fragment>
+    <section
+      className={`${handles.container} c-muted-1 db tc flex-column w-25`}
+    >
       <h1 className="t-heading-4">Calculator</h1>
-      <section
-        className={`${handles.container} c-muted-1 db tc flex-column w-25`}
-      >
-        <Visor printArray={stringArray} printNumber={mainNumber} />
-        <div className="flex-wrap">
-          {keys.map((key, index) => (
-            <Button
-              className={`${handles.numberButtons} w-30`}
-              variation="primary"
-              value={key.value}
-              key={index}
-              id={`${key.value}`}
-              onClick={handleButtonNumber}
-            >
-              {key.print}
-            </Button>
-          ))}
-        </div>
-        <div>
-          {operators.map((operator, index) => (
-            <Button
-              className={`${handles.operatorButtons}`}
-              variation="secondary"
-              value={operator.print}
-              key={index}
-              id={`${operator.print}`}
-              onClick={handleButtonOperator}
-            >
-              {operator.print}
-            </Button>
-          ))}
-        </div>
-      </section>
-    </Fragment>
+      <CalculatorVisor printArray={stringArray} printNumber={mainNumber} />
+      <div className="flex-wrap">
+        {keys.map((key, index) => (
+          <CalculatorButton
+            key={index}
+            buttonVariation="primary"
+            buttonPrint={key.print}
+            buttonOperation={handleButtonNumber}
+          />
+        ))}
+      </div>
+      <div>
+        {operators.map((operator, index) => (
+          <CalculatorButton
+            key={index}
+            buttonVariation="secondary"
+            buttonPrint={operator.print}
+            buttonOperation={handleButtonOperator}
+          />
+        ))}
+      </div>
+    </section>
   )
 }
 
