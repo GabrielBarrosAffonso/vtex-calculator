@@ -6,7 +6,7 @@ type Props = {
   printNumber: string
 }
 
-const CSS_HANDLES = ['visor']
+const CSS_HANDLES = ['visor', 'visorText']
 
 function CalculatorVisor({ printNumber, printArray }: Props) {
   const { handles } = useCssHandles(CSS_HANDLES)
@@ -14,7 +14,9 @@ function CalculatorVisor({ printNumber, printArray }: Props) {
   return (
     <div className={`${handles.visor} bg-light-silver pa4 w-100 h2`}>
       {printArray.map((value, index) => (
-        <span key={index}>{value}</span>
+        <span className={`${handles.visorText}`} key={index}>
+          {value}
+        </span>
       ))}
       {<span>{printNumber}</span>}
     </div>

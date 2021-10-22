@@ -39,10 +39,13 @@ function Calculator() {
   // ---------------------------------------
   function handleButtonOperator(e: React.MouseEvent) {
     e.preventDefault()
-    handleNumberArray.push(parseFloat(mainNumber))
-    handleLastOperator = (e.target as HTMLButtonElement).innerHTML
-    handleStringArray.push(mainNumber)
-    handleStringArray.push(handleLastOperator)
+
+    if (mainNumber !== '') {
+      handleNumberArray.push(parseFloat(mainNumber))
+      handleLastOperator = (e.target as HTMLButtonElement).innerHTML
+      handleStringArray.push(mainNumber)
+      handleStringArray.push(handleLastOperator)
+    }
 
     if (numberArray.length === 2) {
       calculate(numberArray, lastOperator)
@@ -79,25 +82,27 @@ function Calculator() {
     >
       <h1 className="t-heading-4">Calculator</h1>
       <CalculatorVisor printArray={stringArray} printNumber={mainNumber} />
-      <div className="flex-wrap">
-        {keys.map((key, index) => (
-          <CalculatorButton
-            key={index}
-            buttonVariation="primary"
-            buttonPrint={key.print}
-            buttonOperation={handleButtonNumber}
-          />
-        ))}
-      </div>
-      <div>
-        {operators.map((operator, index) => (
-          <CalculatorButton
-            key={index}
-            buttonVariation="secondary"
-            buttonPrint={operator.print}
-            buttonOperation={handleButtonOperator}
-          />
-        ))}
+      <div className="numbers ">
+        <div className="flex-wrap fl w-80 pa2">
+          {keys.map((key, index) => (
+            <CalculatorButton
+              key={index}
+              buttonVariation="primary"
+              buttonPrint={key.print}
+              buttonOperation={handleButtonNumber}
+            />
+          ))}
+        </div>
+        <div className="fl w-20 pa2">
+          {operators.map((operator, index) => (
+            <CalculatorButton
+              key={index}
+              buttonVariation="secondary"
+              buttonPrint={operator.print}
+              buttonOperation={handleButtonOperator}
+            />
+          ))}
+        </div>
       </div>
     </section>
   )

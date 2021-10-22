@@ -19,7 +19,7 @@ function CalculatorButton({
 
   return (
     <Button
-      className={`${handles.numberButtons} w-30`}
+      className={`${handles.numberButtons}`}
       variation={buttonVariation}
       value={buttonPrint}
       id={buttonPrint}
